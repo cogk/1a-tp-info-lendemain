@@ -1,0 +1,27 @@
+Variables
+    Soit jour un entier compris entre 1 et 31 inclus.
+    Soit mois un entier compris entre 1 et 12 inclus.
+    Soit année un entier relatif.
+
+Entrée
+    Entrer jour, mois, année.
+
+Traitement
+    Si jour vaut 31,
+      ou jour vaut 30 et mois appartient à l'ensemble {2,4,6,9,11},
+      ou mois vaut 2
+        et (jour vaut 29
+            ou jour vaut 28 et année divisible par 4 (bissextile))
+    Alors
+        Donner à jour la valeur 1.
+        Augmenter mois de 1.
+    Sinon
+        Augmenter jour de 1.
+
+    Si mois supérieur à 12
+        Alors
+            Donner à mois la valeur 1.
+            Augmenter année de 1.
+
+Sortie
+    Afficher "Lendemain : " jour "/" mois "/" année.
