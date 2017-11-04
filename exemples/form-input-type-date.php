@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -33,22 +33,38 @@
     </style>
 </head>
 <body>
-    <?php require("../lendemain.php"); ?>
+    <?php
+        require("../fonction-lendemain.php");
+    ?>
 
-
-    <? $date = (isset($_GET["date"]) && !empty($_GET["date"])) ? strip_tags($_GET["date"]) : "1999-04-19"; ?>
+    <?php
+        if (isset($_GET["date"]) && !empty($_GET["date"])) {
+            $date = strip_tags($_GET["date"]);
+        }
+        else {
+            $date = "1999-04-19";
+        }
+    ?>
     <form>
-        <input name="date" value="<? echo $date; ?>" type="date" />
+        <input name="date" value="<?php echo $date; ?>" type="date" />
         <input type="submit" value="Lendemain !">
     </form>
 
     <output>
-        <?
+        <?php
             $aaaammjj = explode("-", $date);
             $jour = $aaaammjj[2];
             $mois = $aaaammjj[1];
             $année = $aaaammjj[0];
-            echo join("/", lendemain($jour, $mois, $année));
+
+            $lendemainJMA = lendemain($jour, $mois, $année);
+
+            if ($lendemainJMA == "invalide") {
+                echo "La date entrée n'est pas valide";
+            }
+            else {
+                echo join("/", $lendemainJMA);
+            }
         ?>
     </output>
 </body>

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -34,7 +34,7 @@
 </head>
 <body>
     <?php
-    require("../lendemain.php");
+    require("../fonction-lendemain.php");
 
     function mois_3_chars($str) {
         $accents = array('é' => 'e', 'è' => 'e', 'ê' => 'e', 'à' => 'a', 'û' => 'u');
@@ -69,26 +69,31 @@
 
         $année = intval( $elementsDeDate[2] );
 
-        $lendemainAMJ = lendemain($jour, $mois, $année);
-        $d_jour = intval($lendemainAMJ[0]);
-        $d_mois = intval($lendemainAMJ[1]);
-        $d_année = intval($lendemainAMJ[2]);
 
-        afficherDate($d_jour, $d_mois, $d_année);
-    }
-    function afficherDate($jour, $mois, $année) {
-        echo $jour, " ", get_nom_mois($mois), " ", $année;
+        $lendemainJMA = lendemain($jour, $mois, $année);
+
+        if ($lendemainJMA == "invalide") {
+            return "<em>La date entrée n'est pas valide</em>";
+        }
+        else {
+            $d_jour = intval($lendemainJMA[0]);
+            $d_mois = intval($lendemainJMA[1]);
+            $d_année = intval($lendemainJMA[2]);
+            return $d_jour . " " . get_nom_mois($d_mois) . " " . $d_année;
+        }
     }
     ?>
 
 
 
-    <? $date = isset($_GET["date"]) ? strip_tags($_GET["date"]) : "19 avril 1999"; ?>
+    <?php $date = isset($_GET["date"]) ? strip_tags($_GET["date"]) : "19 avril 1999"; ?>
     <form>
-        <input name="date" value="<? echo $date; ?>" type="text" />
+        <input name="date" value="<?php echo $date; ?>" type="text" />
     </form>
     <output>
-        <? lendemain_str($date) ?>
-    </output>
+        <?php
+            echo lendemain_str($date);
+        ?>
+   </output>
 </body>
 </html>
